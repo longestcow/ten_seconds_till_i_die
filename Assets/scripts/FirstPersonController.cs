@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -11,6 +13,10 @@ public class FirstPersonController : MonoBehaviour
 	public float SprintSpeed = 6.0f;
 	public float RotationSpeed = 1.0f;
 	public float SpeedChangeRate = 10.0f;
+	public float currentTime = 0;
+	int currentTimeIndex = 0;
+	bool shooting = false, resetting = false, walking = false;
+	Coroutine shootCoroutine;
 
 	[Space(10)]
 	public float JumpHeight = 1.2f;
@@ -20,8 +26,17 @@ public class FirstPersonController : MonoBehaviour
 	public float JumpTimeout = 0.1f;
 	public float FallTimeout = 0.15f;
 
+	[Space(10)]
+	public Animator animb;
+	public Image gunImage;
+	public Sprite[] gunSprites;
+	public Image timerImage;
+	public Sprite[] timerSprites;
+	
+
 	[Header("Player Grounded")]
 	public bool Grounded = true;
+	bool pGrounded = true;
 	public float GroundedOffset = -0.14f;
 	public float GroundedRadius = 0.5f;
 	public LayerMask GroundLayers;
@@ -83,9 +98,14 @@ public class FirstPersonController : MonoBehaviour
 
 	private void Update()
 	{
-		JumpAndGravity();
+		if (Input.GetMouseButtonDown(1))
+			StartCoroutine(ResetTime());
+
+		TimerCount();
 		GroundedCheck();
+		JumpAndGravity();
 		Move();
+		Shoot();
 	}
 
 	private void LateUpdate()
@@ -98,6 +118,11 @@ public class FirstPersonController : MonoBehaviour
 		// set sphere position, with offset
 		Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 		Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+		if (Grounded && !pGrounded)
+			animb.SetTrigger("jumpDown");
+		if(!Grounded && pGrounded)
+			animb.SetTrigger("jumpUp");
+		pGrounded = Grounded;
 	}
 
 	private void CameraRotation()
@@ -152,8 +177,17 @@ public class FirstPersonController : MonoBehaviour
 		// normalise input direction
 		Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
-		if (_input.move != Vector2.zero)
+		if (_input.move != Vector2.zero){
 			inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+			if (!walking) {
+				walking = true;
+				animb.SetBool("walk", true);
+			}
+		}
+		else if (walking) {
+			walking = false;
+			animb.SetBool("walk", false);
+		}
 		
 
 		_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
@@ -165,7 +199,6 @@ public class FirstPersonController : MonoBehaviour
 		{
 			_fallTimeoutDelta = FallTimeout;
 
-			// stop our velocity dropping infinitely when grounded
 			if (_verticalVelocity < 0.0f){
 				_verticalVelocity = -2f;
 			}
@@ -203,6 +236,29 @@ public class FirstPersonController : MonoBehaviour
 		}
 	}
 
+	private void Shoot()
+	{
+		if (_input.shoot)
+		{
+			_input.shoot = false;
+			if(shootCoroutine != null)
+				StopCoroutine(shootCoroutine);
+			shootCoroutine = StartCoroutine(ShootAnim());
+
+			//rayline to check if anything got shot
+		}
+	}
+
+	IEnumerator ShootAnim()
+	{
+		gunImage.sprite = gunSprites[0];
+		yield return new WaitForSeconds(0.02f);
+		gunImage.sprite = gunSprites[1];
+		Debug.Log("shoot");
+		yield return new WaitForSeconds(0.2f);
+		gunImage.sprite = gunSprites[0];
+		shootCoroutine = null;
+	}
 	private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 	{
 		if (lfAngle < -360f) lfAngle += 360f;
@@ -219,5 +275,41 @@ public class FirstPersonController : MonoBehaviour
 
 		// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 		Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+	}
+
+	private void TimerCount()
+	{
+		if (resetting)
+			return;
+		currentTime += Time.deltaTime;
+		if(currentTime > 10)
+			currentTime = 10;
+		if ((int)currentTime != currentTimeIndex)
+		{
+			currentTimeIndex = (int)currentTime;
+			timerImage.sprite = timerSprites[currentTimeIndex];
+		}
+		if (currentTimeIndex == 10)
+		{
+			Debug.Log("gameb overb...");
+		}
+
+	}
+
+	IEnumerator ResetTime()
+	{
+		float timeSplit = 0.3f/currentTimeIndex;
+		if (resetting)
+			yield break;
+		resetting = true;
+		for (int i = currentTimeIndex-1; i >= 0; i--)
+		{
+			timerImage.sprite = timerSprites[i];
+			yield return new WaitForSeconds(timeSplit);
+		}
+		timerImage.sprite = timerSprites[0];
+		currentTime = 0;
+		resetting = false;
+		
 	}
 }

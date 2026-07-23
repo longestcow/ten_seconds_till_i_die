@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c918ae51c70ad8f4a94e54e3c0c6adc5
+guid: 92dddbaaf14fa0a4b867dc1fb4026bdf
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,9 +48,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 105
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
+    maxTextureSize: 8192
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -119,232 +119,232 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hand_countdown_0
+      name: hand countdown_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e203f5e7bf9b714f86f7515e5162628
-      internalID: -368165203
+      spriteID: f85fb9a28d2f17e42b8161ee2edc8bc8
+      internalID: -1289502741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_1
+      name: hand countdown_1
       rect:
         serializedVersion: 2
         x: 640
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f26b257ced7d5034cb858d53c37b0b77
-      internalID: -589842595
+      spriteID: bad96aa4e90785f45a21404519751dfc
+      internalID: -1631513751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_2
+      name: hand countdown_2
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4589637fd9c3b94386ac1305d99feb2
-      internalID: 1500211682
+      spriteID: cb72a725bc1afdd48b4cd5aa421ccf22
+      internalID: -10756893
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_3
+      name: hand countdown_3
       rect:
         serializedVersion: 2
         x: 1920
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2c3873caacc93d42bf964b7360c22ff
-      internalID: -1491578619
+      spriteID: 05f48b84606d247458aa736936600438
+      internalID: 1137045308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_4
+      name: hand countdown_4
       rect:
         serializedVersion: 2
         x: 2560
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f66f9d63d8c753a479be280214d4605f
-      internalID: -1261262452
+      spriteID: fdecad97ec27c1142be92bce8b6afe8a
+      internalID: 914798071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_5
+      name: hand countdown_5
       rect:
         serializedVersion: 2
         x: 3200
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc4767c248b02d040ba09c335487bf60
-      internalID: 1172243181
+      spriteID: df48bf1cc3eec164fa78fa0bdd396d79
+      internalID: 1746006379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_6
+      name: hand countdown_6
       rect:
         serializedVersion: 2
         x: 3840
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7bb57bbee883ec449b6641e052ac1f7
-      internalID: 1462866204
+      spriteID: 70f1bb7fb33aabd41a706caef3fc8ac3
+      internalID: 2044049010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_7
+      name: hand countdown_7
       rect:
         serializedVersion: 2
         x: 4480
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01ba328817fb5c242a0172bc5beaf1ea
-      internalID: 1432783606
+      spriteID: 408db03a70f3358438f881204f30a0ba
+      internalID: -1807130768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_8
+      name: hand countdown_8
       rect:
         serializedVersion: 2
         x: 5120
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 36fe333394b6ad04aa8a0355a2567919
-      internalID: -1362785786
+      spriteID: 4c55be451fff7e74a88c6d8d372857cd
+      internalID: 1336802364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_9
+      name: hand countdown_9
       rect:
         serializedVersion: 2
         x: 5760
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e01f8eee72bcbc44f9ddf51cfc43681d
-      internalID: -857060715
+      spriteID: cdd007f0b9de4d44e80fc3c721a27e0a
+      internalID: 186896147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hand_countdown_10
+      name: hand countdown_10
       rect:
         serializedVersion: 2
         x: 6400
         y: 0
         width: 640
         height: 360
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: babe07b89211c8646b5c4286994c7f14
-      internalID: 733846273
+      spriteID: 5e6ad392c0245e8478724a6d1085e9bc
+      internalID: -186773513
       vertices: []
       indices: 
       edges: []
@@ -352,7 +352,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a8118eaa207ebad478a6d56f10fc7c7c
+    spriteID: 7f287a67b6f813949a255f6dbe2bcad7
     internalID: 0
     vertices: []
     indices: 
@@ -360,17 +360,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      hand_countdown_0: -368165203
-      hand_countdown_1: -589842595
-      hand_countdown_10: 733846273
-      hand_countdown_2: 1500211682
-      hand_countdown_3: -1491578619
-      hand_countdown_4: -1261262452
-      hand_countdown_5: 1172243181
-      hand_countdown_6: 1462866204
-      hand_countdown_7: 1432783606
-      hand_countdown_8: -1362785786
-      hand_countdown_9: -857060715
+      hand countdown_0: -1289502741
+      hand countdown_1: -1631513751
+      hand countdown_10: -186773513
+      hand countdown_2: -10756893
+      hand countdown_3: 1137045308
+      hand countdown_4: 914798071
+      hand countdown_5: 1746006379
+      hand countdown_6: 2044049010
+      hand countdown_7: -1807130768
+      hand countdown_8: 1336802364
+      hand countdown_9: 186896147
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

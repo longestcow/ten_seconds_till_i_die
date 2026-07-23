@@ -9,6 +9,8 @@ public class StarterAssetsInputs : MonoBehaviour
 	public Vector2 look;
 	public bool jump;
 	public bool sprint;
+	public bool shoot;
+	bool pShoot = false;
 
 	[Header("Movement Settings")]
 	public bool analogMovement;
@@ -17,7 +19,6 @@ public class StarterAssetsInputs : MonoBehaviour
 	public bool cursorLocked = true;
 	public bool cursorInputForLook = true;
 
-#if ENABLE_INPUT_SYSTEM
 	public void OnMove(InputValue value)
 	{
 		MoveInput(value.Get<Vector2>());
@@ -40,8 +41,13 @@ public class StarterAssetsInputs : MonoBehaviour
 	{
 		SprintInput(value.isPressed);
 	}
-#endif
 
+	public void OnShoot(InputValue value)
+	{
+		ShootInput(value.isPressed);
+	}
+
+//---------------------------------------------------
 
 	public void MoveInput(Vector2 newMoveDirection)
 	{
@@ -62,6 +68,12 @@ public class StarterAssetsInputs : MonoBehaviour
 	{
 		sprint = newSprintState;
 	}
+
+	public void ShootInput(bool newShootState)
+	{
+		shoot = newShootState;
+	}
+
 	
 	private void OnApplicationFocus(bool hasFocus)
 	{
