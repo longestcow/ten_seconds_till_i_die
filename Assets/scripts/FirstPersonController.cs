@@ -94,12 +94,14 @@ public class FirstPersonController : MonoBehaviour
 
 		_jumpTimeoutDelta = JumpTimeout;
 		_fallTimeoutDelta = FallTimeout;
+
+		SFXManager.instance.changeMusic(1, transform);
 	}
 
 	private void Update()
 	{
 		if (Input.GetMouseButtonDown(1))
-			StartCoroutine(ResetTime());
+			ResetTime();
 
 		TimerCount();
 		GroundedCheck();
@@ -118,10 +120,13 @@ public class FirstPersonController : MonoBehaviour
 		// set sphere position, with offset
 		Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 		Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-		if (Grounded && !pGrounded)
+		if (Grounded && !pGrounded){
 			animb.SetTrigger("jumpDown");
-		if(!Grounded && pGrounded)
+			SFXManager.instance.playSFX(6, transform, 1f);
+		}
+		if(!Grounded && pGrounded){
 			animb.SetTrigger("jumpUp");
+		}
 		pGrounded = Grounded;
 	}
 
@@ -244,8 +249,7 @@ public class FirstPersonController : MonoBehaviour
 			if(shootCoroutine != null)
 				StopCoroutine(shootCoroutine);
 			shootCoroutine = StartCoroutine(ShootAnim());
-
-			//rayline to check if anything got shot
+				
 		}
 	}
 
@@ -254,7 +258,15 @@ public class FirstPersonController : MonoBehaviour
 		gunImage.sprite = gunSprites[0];
 		yield return new WaitForSeconds(0.02f);
 		gunImage.sprite = gunSprites[1];
-		Debug.Log("shoot");
+        SFXManager.instance.playSFX(0, transform, 1f);
+
+		RaycastHit hit;
+		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 100f)){
+			Debug.Log("Hit: " + hit.collider.gameObject.name);
+    		Debug.Log("Layer: " + hit.collider.gameObject.layer);
+			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("enemy"))
+				hit.collider.GetComponent<Walker>().Hurt();
+		}
 		yield return new WaitForSeconds(0.2f);
 		gunImage.sprite = gunSprites[0];
 		shootCoroutine = null;
@@ -288,6 +300,9 @@ public class FirstPersonController : MonoBehaviour
 		{
 			currentTimeIndex = (int)currentTime;
 			timerImage.sprite = timerSprites[currentTimeIndex];
+			float pitch = Mathf.Lerp(0.9f, 1.6f, currentTimeIndex / 10f);
+        	SFXManager.instance.playSFX(4, transform, 1f, pitch);
+
 		}
 		if (currentTimeIndex == 10)
 		{
@@ -296,7 +311,11 @@ public class FirstPersonController : MonoBehaviour
 
 	}
 
-	IEnumerator ResetTime()
+	public void ResetTime()
+	{
+		StartCoroutine(ResetTimeCor());
+	}
+	IEnumerator ResetTimeCor()
 	{
 		float timeSplit = 0.3f/currentTimeIndex;
 		if (resetting)
@@ -304,6 +323,8 @@ public class FirstPersonController : MonoBehaviour
 		resetting = true;
 		for (int i = currentTimeIndex-1; i >= 0; i--)
 		{
+			float pitch = Mathf.Lerp(0.9f, 1.6f, i / 10f);
+        	SFXManager.instance.playSFX(5, transform, 1f, pitch);
 			timerImage.sprite = timerSprites[i];
 			yield return new WaitForSeconds(timeSplit);
 		}
