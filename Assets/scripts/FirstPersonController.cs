@@ -277,7 +277,9 @@ public class FirstPersonController : MonoBehaviour
 			Debug.Log("Hit: " + hit.collider.gameObject.name);
     		Debug.Log("Layer: " + hit.collider.gameObject.layer);
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("enemy"))
-				hit.collider.GetComponent<Walker>().Hurt();
+			{
+				 hit.collider.GetComponent<Walker>().Hurt(hit.point);
+			}
 		}
 		yield return new WaitForSeconds(0.2f);
 		gunImage.sprite = gunSprites[0];

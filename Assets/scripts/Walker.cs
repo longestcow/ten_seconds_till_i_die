@@ -12,6 +12,7 @@ public class Walker : MonoBehaviour
     public float range = 3.5f, speed = 3.5f, health = 10f;
     float updateRate = 0.2f;
     float timer;
+    [SerializeField] private ParticleSystem hitParticles;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -58,18 +59,22 @@ void Update()
 }
 
 
-    public void Hurt()
+    public void Hurt(Vector3 hitPoint)
+{
+    Debug.Log("OUCH");
+    health--;
+
+    Instantiate(hitParticles, hitPoint, Quaternion.identity);
+
+    StartCoroutine(HurtAnim());
+
+    if (health <= 0)
     {
-        Debug.Log("OUCH");
-        health-=1;
-        StartCoroutine(HurtAnim());
-        
-        if (health <= 0){
-            playerController.ResetTime();
-            SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.5f, 1.5f));
-            Destroy(gameObject);
-        }
+        playerController.ResetTime();
+        SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.5f, 1.5f));
+        Destroy(gameObject);
     }
+}
 
     IEnumerator HurtAnim()
     {

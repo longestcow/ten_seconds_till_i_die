@@ -73,6 +73,8 @@ MonoBehaviour:
   range: 2
   speed: 5
   health: 5
+  hitParticles: {fileID: 7882986459977470221, guid: 8225c37a5c8e7a945abb72ee4c492106,
+    type: 3}
 --- !u!195 &1165867588081504421
 NavMeshAgent:
   m_ObjectHideFlags: 0
