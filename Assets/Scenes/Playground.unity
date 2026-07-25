@@ -959,7 +959,7 @@ GameObject:
   - component: {fileID: 552123225}
   - component: {fileID: 552123224}
   - component: {fileID: 552123223}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2436,6 +2436,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2259451791883135814, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: sfx.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259451791883135814, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: 'sfx.Array.data[9]'
+      value: 
+      objectReference: {fileID: 8300000, guid: a56e0ca95683d5e46bcaedfea11c941b, type: 3}
     - target: {fileID: 3101160957437200787, guid: f0518b6619748f34ab4a5dff09051194,
         type: 3}
       propertyPath: m_Name
@@ -4470,7 +4480,7 @@ GameObject:
   - component: {fileID: 5885216829670671795}
   - component: {fileID: 135756641613574975}
   - component: {fileID: 4416926083347132239}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: PlayerCapsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -6069,7 +6079,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8338988565591873055}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerCameraRoot
   m_TagString: CinemachineTarget
   m_Icon: {fileID: 0}
