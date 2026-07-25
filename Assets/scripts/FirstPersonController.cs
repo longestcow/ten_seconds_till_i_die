@@ -280,6 +280,9 @@ public class FirstPersonController : MonoBehaviour
 			{
 				 hit.collider.GetComponent<Walker>().Hurt(hit.point);
 			}
+		if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
+			hit.collider.GetComponent<EnemyBullet>().Parry(_mainCamera.transform.forward);
+			}
 		}
 		yield return new WaitForSeconds(0.2f);
 		gunImage.sprite = gunSprites[0];

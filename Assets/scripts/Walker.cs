@@ -63,7 +63,7 @@ public class Walker : MonoBehaviour
                         shootTimer = fireCooldown;
                         Vector3 direction1 = ((player.position+new Vector3(0,1.5f,0)) - bulletAnchor.position).normalized;
                         GameObject bullet = Instantiate(bulletPrefab, bulletAnchor.position, bulletAnchor.rotation);
-                        bullet.GetComponent<Bullet>().Initialize(direction1);
+                        bullet.GetComponent<EnemyBullet>().Initialize(direction1);
                     }
                 }
             }
