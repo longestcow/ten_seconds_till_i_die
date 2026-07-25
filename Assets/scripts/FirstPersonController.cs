@@ -167,7 +167,7 @@ public class FirstPersonController : MonoBehaviour
 	private void Move()
 	{
 		// set target speed based on move speed, sprint speed and if sprint is pressed
-		float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+		float targetSpeed = _input.sprint ? (Grounded?SprintSpeed:1.5f*MoveSpeed): MoveSpeed;
 
 		// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -319,20 +319,20 @@ public class FirstPersonController : MonoBehaviour
 
 		}
 		if (currentTime >= 9.9f)
-		{
-			//death scene
-			dead=true;
-			SFXManager.instance.fadeOut();
-			enemySpawner.StopSpawning();
-			currentTime = 9.99f;
-			SetTimeText();
-			blackScreen.SetActive(true);
-			StartCoroutine(DeathScene());
-
-		}
+			Dead();
 
 	}
 
+	void Dead()
+	{
+		dead=true;
+		SFXManager.instance.fadeOut();
+		enemySpawner.StopSpawning();
+		currentTime = 9.99f;
+		SetTimeText();
+		blackScreen.SetActive(true);
+		StartCoroutine(DeathScene());
+	}
 	IEnumerator DeathScene()
 	{
 		SFXManager.instance.playSFX(3, transform, 1f);
@@ -378,4 +378,28 @@ public class FirstPersonController : MonoBehaviour
 		int ms = Mathf.FloorToInt((remaining - ss) * 100);
 		timeText.text = string.Format("{0:00}.{1:00}s", ss, ms);
 	}
+
+	private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer==LayerMask.NameToLayer("bloodBath"))
+        {
+			SFXManager.instance.playSFX(2, transform, 1f);
+            Dead();
+        }
+
+		else if(collision.gameObject.layer == LayerMask.NameToLayer("enemy"))
+		{
+			SFXManager.instance.playSFX(2, transform, 2f);
+			SFXManager.instance.playSFX(9, transform, 1f);
+			// currentTime+=1f;
+			Debug.Log("OUCHOUCHOUCH");
+		}
+		else if(collision.gameObject.layer == LayerMask.NameToLayer("bullet"))
+		{
+			SFXManager.instance.playSFX(2, transform, 2f);
+			Debug.Log("OUCHOUCHOUCH");
+			// currentTime+=1f;
+			Destroy(collision.gameObject);
+		}
+    }
 }

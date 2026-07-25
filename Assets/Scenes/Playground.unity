@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.035806455, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.03581263, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 358519675}
   - component: {fileID: 358519679}
   - component: {fileID: 358519678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: blood ocean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a57df7f83a757946a5ac053bfe62365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1829994258914535092, guid: f817a26265bac004688521c68a1e5d32,
+  enemyPrefab: {fileID: 7980066010809794016, guid: f817a26265bac004688521c68a1e5d32,
     type: 3}
   enemiesPerWave: 5
   waveInterval: 10
@@ -2378,6 +2378,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880224787}
   m_CullTransparentMesh: 1
+--- !u!1001 &2133809197
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.4740143
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.3201389
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.7555795
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115974459973059380, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101160957437200787, guid: f0518b6619748f34ab4a5dff09051194,
+        type: 3}
+      propertyPath: m_Name
+      value: SFXManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0518b6619748f34ab4a5dff09051194, type: 3}
 --- !u!33 &33325208752117722
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9290,3 +9358,4 @@ SceneRoots:
   - {fileID: 936802267}
   - {fileID: 335555903}
   - {fileID: 498076523}
+  - {fileID: 2133809197}

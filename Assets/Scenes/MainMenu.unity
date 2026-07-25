@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: backb
         m_Mode: 1
@@ -734,8 +734,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1021437337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.8888889, y: 0}
+  m_AnchorMax: {x: 0.8888889, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1964,7 +1964,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: playb
         m_Mode: 1
@@ -2122,7 +2122,7 @@ RectTransform:
   m_Father: {fileID: 1979768937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.8888889, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2256,7 +2256,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: musicVolChange
         m_Mode: 0
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: exitb
         m_Mode: 1
@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: sfxVolChange
         m_Mode: 0
@@ -2633,7 +2633,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: fovChange
         m_Mode: 0
@@ -3268,7 +3268,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 26540131240037092}
+      - m_Target: {fileID: 4853320646806812195}
         m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
         m_MethodName: optionsb
         m_Mode: 1
@@ -3776,18 +3776,33 @@ RectTransform:
   - {fileID: 1737356617}
   m_Father: {fileID: 982990602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -108, y: -5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 160, y: 146}
   m_SizeDelta: {x: 160, y: 41}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &26540131240037092
+--- !u!4 &4709684985015246417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8577337971621467382}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4740143, y: 1.3201389, z: 1.7555795}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4853320646806812195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2194011982637948612}
+  m_GameObject: {fileID: 8577337971621467382}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63222c42a7994414f9f68baef06f206b, type: 3}
@@ -3824,7 +3839,7 @@ MonoBehaviour:
   currentMusicIndex: 0
   prevMusicIndex: 0
   fov: 70
---- !u!1 &2194011982637948612
+--- !u!1 &8577337971621467382
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3832,8 +3847,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7623026017712039817}
-  - component: {fileID: 26540131240037092}
+  - component: {fileID: 4709684985015246417}
+  - component: {fileID: 4853320646806812195}
   m_Layer: 0
   m_Name: SFXManager
   m_TagString: Untagged
@@ -3841,21 +3856,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7623026017712039817
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2194011982637948612}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4740143, y: 1.3201389, z: 1.7555795}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3864,4 +3864,4 @@ SceneRoots:
   - {fileID: 1986327731}
   - {fileID: 982990602}
   - {fileID: 675743218}
-  - {fileID: 7623026017712039817}
+  - {fileID: 4709684985015246417}
