@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public float waveInterval = 8f;
 
     public float spawnRadius = 30f;
-
+    bool stop = false;
     private void Start()
     {
         StartCoroutine(SpawnWaves());
@@ -18,7 +18,8 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWaves()
     {
-        while (true)
+        yield return new WaitForSeconds(5f); 
+        while (!stop)
         {
             SpawnWave();
             yield return new WaitForSeconds(waveInterval);
@@ -33,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (spawnPoint != Vector3.zero)
             {
-                Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
+                Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, transform);
             }
         }
     }
@@ -51,5 +52,16 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    public void StopSpawning()
+    {
+        stop = true;
+        StopAllCoroutines();
+        //destroy all children under this object
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

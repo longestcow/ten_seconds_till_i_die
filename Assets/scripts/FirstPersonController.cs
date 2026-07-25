@@ -2,6 +2,8 @@
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
+using Cinemachine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -14,8 +16,13 @@ public class FirstPersonController : MonoBehaviour
 	public float RotationSpeed = 1.0f;
 	public float SpeedChangeRate = 10.0f;
 	public float currentTime = 0;
+	float scaleb = 0.4f;
+	public GameObject blackScreen;
+	EnemySpawner enemySpawner;
 	int currentTimeIndex = 0;
-	bool shooting = false, resetting = false, walking = false;
+	public TextMeshProUGUI timeText;
+	public CinemachineVirtualCamera vcam;
+	bool resetting = false, walking = false, dead = false;
 	Coroutine shootCoroutine;
 
 	[Space(10)]
@@ -94,20 +101,25 @@ public class FirstPersonController : MonoBehaviour
 
 		_jumpTimeoutDelta = JumpTimeout;
 		_fallTimeoutDelta = FallTimeout;
-
+		enemySpawner = GameObject.FindGameObjectWithTag("enemySpawner").GetComponent<EnemySpawner>();
 		SFXManager.instance.changeMusic(1, transform);
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+		vcam.m_Lens.FieldOfView=SFXManager.instance.fov;
 	}
 
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(1))
-			ResetTime();
+		if (dead)
+			return;
 
 		TimerCount();
 		GroundedCheck();
 		JumpAndGravity();
 		Move();
 		Shoot();
+		SetTimeText();
+
 	}
 
 	private void LateUpdate()
@@ -293,7 +305,7 @@ public class FirstPersonController : MonoBehaviour
 	{
 		if (resetting)
 			return;
-		currentTime += Time.deltaTime;
+		currentTime += Time.deltaTime * scaleb;
 		if(currentTime > 10)
 			currentTime = 10;
 		if ((int)currentTime != currentTimeIndex)
@@ -304,15 +316,38 @@ public class FirstPersonController : MonoBehaviour
         	SFXManager.instance.playSFX(4, transform, 1f, pitch);
 
 		}
-		if (currentTimeIndex == 10)
+		if (currentTime >= 9.9f)
 		{
-			Debug.Log("gameb overb...");
+			//death scene
+			dead=true;
+			SFXManager.instance.fadeOut();
+			enemySpawner.StopSpawning();
+			currentTime = 9.99f;
+			SetTimeText();
+			blackScreen.SetActive(true);
+			StartCoroutine(DeathScene());
+
 		}
+
+	}
+
+	IEnumerator DeathScene()
+	{
+		SFXManager.instance.playSFX(3, transform, 1f);
+		yield return new WaitForSeconds(3.5f);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		currentTime = 10f;
+		SetTimeText();
+		timerImage.sprite = timerSprites[10];
+		currentTimeIndex = (int)currentTime;
+		timerImage.sprite = timerSprites[currentTimeIndex];
 
 	}
 
 	public void ResetTime()
 	{
+		scaleb=1f;
 		StartCoroutine(ResetTimeCor());
 	}
 	IEnumerator ResetTimeCor()
@@ -332,5 +367,13 @@ public class FirstPersonController : MonoBehaviour
 		currentTime = 0;
 		resetting = false;
 		
+	}
+
+	void SetTimeText()
+	{
+		float remaining = 10f-currentTime;
+		int ss = Mathf.FloorToInt(remaining);
+		int ms = Mathf.FloorToInt((remaining - ss) * 100);
+		timeText.text = string.Format("{0:00}.{1:00}s", ss, ms);
 	}
 }

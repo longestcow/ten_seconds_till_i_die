@@ -65,8 +65,8 @@ void Update()
         StartCoroutine(HurtAnim());
         
         if (health <= 0){
-            // SFXManager.instance.playSFX(2, transform, 1f);
             playerController.ResetTime();
+            SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.5f, 1.5f));
             Destroy(gameObject);
         }
     }

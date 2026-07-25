@@ -10,7 +10,6 @@ public class StarterAssetsInputs : MonoBehaviour
 	public bool jump;
 	public bool sprint;
 	public bool shoot;
-	bool pShoot = false;
 
 	[Header("Movement Settings")]
 	public bool analogMovement;
