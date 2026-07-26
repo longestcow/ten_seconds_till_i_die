@@ -13,7 +13,7 @@ public class FirstPersonController : MonoBehaviour
 	[Header("Player")]
 	public float MoveSpeed = 4.0f;
 	public float SprintSpeed = 6.0f;
-	public float RotationSpeed = 1.0f;
+	float RotationSpeed = 1.0f;
 	public float SpeedChangeRate = 10.0f;
 	public float currentTime = 0;
 	public float scaleb = 0.4f;
@@ -108,6 +108,7 @@ public class FirstPersonController : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		vcam.m_Lens.FieldOfView=SFXManager.instance.fov;
+		RotationSpeed = SFXManager.instance.sensitivity;
 	}
 
 	private void Update()

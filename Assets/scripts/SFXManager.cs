@@ -15,7 +15,7 @@ public class SFXManager : MonoBehaviour
     public AudioSource sfxObject;
     public AudioClip[] music; // 0 menu, 1 main, 2 pause, 3 boss
     public AudioClip[] sfx; // 0 jump, 1 hit, 2 death, 3 pickup, 4 shoot, 5 timer
-    public float sfxVol = 0.36f, musicVol = 0.1f;
+    public float sfxVol = 0.36f, musicVol = 0.1f, sensitivity = 1f;
     public AudioSource currentMusic = null;
     public int currentMusicIndex = 1, prevMusicIndex = 0;
     [HideInInspector] public int fov = 70;

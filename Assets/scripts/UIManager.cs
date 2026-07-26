@@ -6,12 +6,13 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement; 
 
+
 public class UIManager : MonoBehaviour
 {
     Button[] allButtons;
     public GameObject mainUI, optionsUI;
-    public TextMeshProUGUI musText, sfxText, fovText;
-    public Slider musSlider, sfxSlider, fovSlider;
+    public TextMeshProUGUI musText, sfxText, fovText, sensText;
+    public Slider musSlider, sfxSlider, fovSlider, sensSlider;
     void Start()
     {
         SFXManager.instance.changeMusic(0, transform);
@@ -26,7 +27,7 @@ public class UIManager : MonoBehaviour
         musicVolChange(SFXManager.instance.musicVol);
         sfxVolChange(SFXManager.instance.sfxVol);
         fovChange(SFXManager.instance.fov);
-        
+        sensChange(SFXManager.instance.sensitivity);
     }
 
     void OnButtonHovered()
@@ -74,6 +75,12 @@ public class UIManager : MonoBehaviour
         fovSlider.value=(int)value;
         SFXManager.instance.fov = (int)value;
         fovText.text = (int)value+"";
+    }
+    public void sensChange(System.Single value)
+    {
+        sensSlider.value=value;
+        SFXManager.instance.sensitivity = value;
+        sensText.text = Mathf.Round(value*100f)+"%";
     }
 
  
