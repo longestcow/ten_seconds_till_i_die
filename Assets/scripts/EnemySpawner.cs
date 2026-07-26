@@ -1,19 +1,27 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject melee,shooter,flyguy;
+    public GameObject[] enemies;
     GameObject enemyPrefab;
     public Button[] allButtons;
-    public int enemiesPerWave = 5;
-    public float waveInterval = 8f;
-
+    public BoxCollider spawnBox;
+    Bounds bounds;
     public float spawnRadius = 30f;
+    public TextMeshProUGUI waveText;
     bool stop = false;
+
+    [Header("Diff settings")]
+    int waveCount = 0;
+    public float waveInterval = 8f;
+    public int enemiesPerWave = 5;
+    public int spawnType = 0; // 0 is melee, 1 is melee+shooter, 2 is everyone
+    public int healthIncrement = 0;
     private void Start()
     {
         foreach (Button button in allButtons){
@@ -23,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
             entry.callback.AddListener((data) => { OnButtonHovered(); });
             trigger.triggers.Add(entry);
         }
+        bounds = spawnBox.bounds;
         StartCoroutine(DifficultyRamp());
         StartCoroutine(SpawnWaves());
     }
@@ -33,6 +42,8 @@ public class EnemySpawner : MonoBehaviour
         while (!stop)
         {
             SpawnWave();
+            waveCount++;
+            waveText.text = "WAVE "+waveCount;
             yield return new WaitForSeconds(waveInterval);
         }
     }
@@ -41,9 +52,10 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemiesPerWave; i++)
         {
-            int rand = Random.Range(0,3);
-            enemyPrefab = rand==0?shooter:melee;
-            Vector3 spawnPoint = GetRandomNavMeshPoint(); //change spawnpoint function if flyguy
+            int rand = Random.Range(0,spawnType+1);
+            enemyPrefab = enemies[rand];
+            
+            Vector3 spawnPoint = rand==2?GetRandomFlyPoint():GetRandomNavMeshPoint(); //change spawnpoint function if flyguy
 
             if (spawnPoint != Vector3.zero)
             {
@@ -65,6 +77,16 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return Vector3.zero;
+    }
+
+    Vector3 GetRandomFlyPoint()
+    {
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
+        
     }
 
     public void StopSpawning()
@@ -91,9 +113,29 @@ public class EnemySpawner : MonoBehaviour
         SFXManager.instance.playSFX(8, transform, 1f);
     }
 
-    IEnumerator DifficultyRamp()
+    IEnumerator DifficultyRamp() // play with healthIncrement, waveInterval, enemiesPerWave
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(15f);
+        spawnType+=1; //shooters spawning
+        yield return new WaitForSeconds(5f);
+        healthIncrement+=1;
+        yield return new WaitForSeconds(10f);
+        spawnType+=1; //flyguys spawning
+        yield return new WaitForSeconds(5f);
+        healthIncrement+=1;
+        enemiesPerWave+=1;
+        yield return new WaitForSeconds(5f);
+        waveInterval-=1;
+        yield return new WaitForSeconds(10f);
+        while (!stop)
+        {
+            healthIncrement+=1;
+            enemiesPerWave+=1;
+            yield return new WaitForSeconds(30f);
+
+        }
+
+
     }
 
 

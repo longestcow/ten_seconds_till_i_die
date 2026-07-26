@@ -5,7 +5,7 @@ public class EnemyBullet : MonoBehaviour
     public float speed = 8f;
     public float lifetime = 5f;
     public Rigidbody rb;
-
+    LayerMask env;
     Camera cam;
     bool parried = false;
 
@@ -13,6 +13,7 @@ public class EnemyBullet : MonoBehaviour
     {
         cam = Camera.main;
         Destroy(gameObject, lifetime);
+        env = LayerMask.NameToLayer("enemy");
     }
 
     void LateUpdate()
@@ -37,5 +38,11 @@ public class EnemyBullet : MonoBehaviour
         rb.velocity = direction.normalized * speed * 2f;
 
         
+    }
+
+	private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == env)
+            Destroy(gameObject);
     }
 }

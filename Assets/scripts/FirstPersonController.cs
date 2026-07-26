@@ -16,14 +16,16 @@ public class FirstPersonController : MonoBehaviour
 	public float RotationSpeed = 1.0f;
 	public float SpeedChangeRate = 10.0f;
 	public float currentTime = 0;
-	float scaleb = 0.4f;
-	public GameObject blackScreen, options;
+	public float scaleb = 0.4f;
+	public GameObject blackScreen, options, crackScreen;
 	EnemySpawner enemySpawner;
 	int currentTimeIndex = 0;
 	public TextMeshProUGUI timeText;
 	public CinemachineVirtualCamera vcam;
 	bool resetting = false, walking = false, dead = false;
 	Coroutine shootCoroutine;
+	public RawImage bloodImage;
+	Coroutine bloodOverlayCoroutine;
 
 	[Space(10)]
 	public float JumpHeight = 1.2f;
@@ -167,9 +169,16 @@ public class FirstPersonController : MonoBehaviour
 	private void Move()
 	{
 		// set target speed based on move speed, sprint speed and if sprint is pressed
-		float targetSpeed = _input.sprint ? (Grounded?SprintSpeed:1.5f*MoveSpeed): MoveSpeed;
+		float targetSpeed = _input.sprint ? (Grounded?SprintSpeed:1.6f*MoveSpeed): MoveSpeed;
+		if(_input.sprint && Grounded)
+			vcam.m_Lens.FieldOfView=SFXManager.instance.fov-2;
+		else if(_input.sprint && !Grounded)
+			vcam.m_Lens.FieldOfView=SFXManager.instance.fov+2;
+		else
+			vcam.m_Lens.FieldOfView=SFXManager.instance.fov;
 
-		// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
+
+			
 
 		// if there is no input, set the target speed to 0
 		if (_input.move == Vector2.zero) targetSpeed = 0.0f;
@@ -276,11 +285,13 @@ public class FirstPersonController : MonoBehaviour
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 100f)){
 
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("enemy"))
-			{
-				 hit.collider.GetComponent<Walker>().Hurt(hit.point);
-			}
-			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
+				hit.collider.GetComponent<Walker>().Hurt(hit.point);
+			
+			else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("flyEnemy"))
+				hit.collider.GetComponent<flyguy>().Hurt(hit.point);
+			else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
 				hit.collider.GetComponent<EnemyBullet>().Parry(_mainCamera.transform.forward);
+				SFXManager.instance.playSFX(10, transform, 2f);
 			}
 		}
 		yield return new WaitForSeconds(0.2f);
@@ -336,14 +347,15 @@ public class FirstPersonController : MonoBehaviour
 	}
 	IEnumerator DeathScene()
 	{
+		timerImage.sprite = timerSprites[9];
 		blackScreen.SetActive(true);
 		SFXManager.instance.playSFX(3, transform, 1f);
 		yield return new WaitForSeconds(3.5f);
+		// SFXManager.instance.playSFX(11, transform, 1f);
+		// crackScreen.SetActive(true);
 		currentTime = 10f;
 		SetTimeText();
 		timerImage.sprite = timerSprites[10];
-		currentTimeIndex = (int)currentTime;
-		timerImage.sprite = timerSprites[currentTimeIndex];
 		yield return new WaitForSeconds(1f);
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
@@ -387,25 +399,64 @@ public class FirstPersonController : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer==LayerMask.NameToLayer("bloodBath"))
-        {
-			SFXManager.instance.playSFX(2, transform, 1f);
-            Dead();
-        }
-
-		else if(collision.gameObject.layer == LayerMask.NameToLayer("enemy"))
+		if(dead) return;
+		if(collision.gameObject.layer == LayerMask.NameToLayer("enemy"))
 		{
 			SFXManager.instance.playSFX(2, transform, 2f);
 			SFXManager.instance.playSFX(9, transform, 2f);
 			currentTime+=1f;
-			Debug.Log("OUCH");
+			TriggerBloodOverlay();
 		}
 		else if(collision.gameObject.layer == LayerMask.NameToLayer("bullet"))
 		{
 			SFXManager.instance.playSFX(2, transform, 2f);
-			Debug.Log("OUCHOUCHOUCH");
 			currentTime+=1f;
+			TriggerBloodOverlay();
 			Destroy(collision.gameObject);
 		}
     }
+	private void OnControllerColliderHit(ControllerColliderHit collision)
+	{
+		if(dead) return;
+		if (collision.gameObject.layer==LayerMask.NameToLayer("bloodbath"))
+        {
+			SFXManager.instance.playSFX(2, transform, 1f);
+            Dead();
+
+        }
+
+	}
+
+	public void TriggerBloodOverlay()
+	{
+		if (bloodOverlayCoroutine != null)
+			StopCoroutine(bloodOverlayCoroutine);
+
+		bloodOverlayCoroutine = StartCoroutine(BloodOverlay());
+	}
+
+	private IEnumerator BloodOverlay()
+	{
+		Color color = bloodImage.color;
+		color.a = 180f / 255f;
+		bloodImage.color = color;
+
+		const float duration = 0.3f;
+		float elapsed = 0f;
+
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+
+			color.a = Mathf.Lerp(180f / 255f, 0f, elapsed / duration);
+			bloodImage.color = color;
+
+			yield return null;
+		}
+
+		color.a = 0f;
+		bloodImage.color = color;
+
+		bloodOverlayCoroutine = null;
+	}
 }

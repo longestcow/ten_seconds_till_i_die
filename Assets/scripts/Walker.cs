@@ -13,11 +13,13 @@ public class Walker : MonoBehaviour
     Collider collider;
     public Transform bulletAnchor;
     public GameObject bulletPrefab;
-    float fireCooldown = 1f, shootTimer = 0;
+    float fireCooldown = 0.8f, shootTimer = 0;
     public float range = 3.5f, speed = 3.5f, health = 10f;
     float updateRate = 0.2f;
     float timer;
-    [SerializeField] private ParticleSystem hitParticles;
+    public ParticleSystem hitParticles;
+    bool lucky;
+    EnemySpawner par;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -27,6 +29,10 @@ public class Walker : MonoBehaviour
         playerController = player.GetComponent<FirstPersonController>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         collider = GetComponent<Collider>();
+        shootTimer=fireCooldown;
+        par=transform.parent.gameObject.GetComponent<EnemySpawner>();
+        health+=par.healthIncrement;
+        lucky = Random.value <= 0.2f + (par.healthIncrement/10f);
     }
 
     // Update is called once per frame
@@ -61,12 +67,10 @@ public class Walker : MonoBehaviour
 
             shootTimer -= Time.deltaTime;
             if (shootTimer <= 0){
-                shootTimer = fireCooldown * (melee?1:2);
+                shootTimer = fireCooldown;
 
                 if(!melee){
-                    Vector3 direction1 = ((player.position+new Vector3(0,1.5f,0)) - bulletAnchor.position).normalized;
-                    GameObject bullet = Instantiate(bulletPrefab, bulletAnchor.position, bulletAnchor.rotation);
-                    bullet.GetComponent<EnemyBullet>().Initialize(direction1);
+                    StartCoroutine(Shoot());
                 }
                 else
                 {
@@ -87,7 +91,7 @@ public class Walker : MonoBehaviour
     {
         health--;
 
-        Instantiate(hitParticles, hitPoint, Quaternion.identity);
+        Destroy(Instantiate(hitParticles, hitPoint, Quaternion.identity), 2f);
 
         StartCoroutine(HurtAnim());
 
@@ -112,5 +116,23 @@ public class Walker : MonoBehaviour
         collider.enabled = false;
         yield return null;
         collider.enabled = true;
+    }
+
+    void ShootFunc()
+    {
+        Vector3 direction1 = ((player.position+new Vector3(0,1.5f,0)) - bulletAnchor.position).normalized;
+        GameObject bullet = Instantiate(bulletPrefab, bulletAnchor.position, bulletAnchor.rotation, transform.parent);
+        bullet.GetComponent<EnemyBullet>().Initialize(direction1);
+    }
+    IEnumerator Shoot()
+    {
+        ShootFunc();
+        if (lucky)
+        {
+            yield return new WaitForSeconds(0.3f);
+            ShootFunc();
+            yield return new WaitForSeconds(0.3f);
+            ShootFunc();
+        }
     }
 }

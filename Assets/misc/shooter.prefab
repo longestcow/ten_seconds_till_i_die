@@ -191,9 +191,9 @@ MonoBehaviour:
   bulletAnchor: {fileID: 2194679168081558609}
   bulletPrefab: {fileID: 8090022388428595463, guid: a244145f40c88264cac85946b09d8c3d,
     type: 3}
-  range: 6
+  range: 7
   speed: 5
-  health: 5
+  health: 4
   hitParticles: {fileID: 7882986459977470221, guid: 8225c37a5c8e7a945abb72ee4c492106,
     type: 3}
 --- !u!195 &4751563798614315154
@@ -243,5 +243,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0

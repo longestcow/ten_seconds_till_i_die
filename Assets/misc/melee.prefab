@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 7691590313803326976}
   - component: {fileID: 1991205881332000888}
   - component: {fileID: 7311576581905317793}
-  - component: {fileID: -4098901338361928868}
+  - component: {fileID: 5307911650044246564}
   m_Layer: 6
   m_Name: melee
   m_TagString: Untagged
@@ -192,8 +192,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8090022388428595463, guid: a244145f40c88264cac85946b09d8c3d,
     type: 3}
   range: 6
-  speed: 4
-  health: 4
+  speed: 5.5
+  health: 3
   hitParticles: {fileID: 7882986459977470221, guid: 8225c37a5c8e7a945abb72ee4c492106,
     type: 3}
 --- !u!195 &7311576581905317793
@@ -209,7 +209,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -218,7 +218,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &-4098901338361928868
+--- !u!54 &5307911650044246564
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,7 +241,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0

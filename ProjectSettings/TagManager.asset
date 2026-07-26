@@ -10,15 +10,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - env
   - Water
   - UI
   - enemy
   - bloodbath
   - bullet
   - player
-  - 
-  - 
+  - flyEnemy
+  - spawnBox
   - 
   - 
   - 
