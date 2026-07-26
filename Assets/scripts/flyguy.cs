@@ -168,12 +168,15 @@ public class flyguy : MonoBehaviour
 
         StartCoroutine(HurtAnim());
 
-        if (health <= 0)
-        {
-            playerController.ResetTime();
-            SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.4f, 1.2f));
-            Destroy(gameObject);
+        if (health <= 0) {
+            Dead();
         }
+    }
+    public void Dead()
+    {
+        playerController.ResetTime();
+        SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.4f, 1.2f));
+        Destroy(gameObject);
     }
     IEnumerator HurtAnim()
     {

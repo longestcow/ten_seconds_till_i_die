@@ -95,12 +95,15 @@ public class Walker : MonoBehaviour
 
         StartCoroutine(HurtAnim());
 
-        if (health <= 0)
-        {
-            playerController.ResetTime();
-            SFXManager.instance.playSFX(7, transform, 1f, Random.Range((melee?1f:0.5f), (melee?1.8f:1.5f)));
-            Destroy(gameObject);
+        if (health <= 0){
+            Dead();
         }
+    }
+    public void Dead()
+    {
+        playerController.ResetTime();
+        SFXManager.instance.playSFX(7, transform, 1f, Random.Range((melee?1f:0.5f), (melee?1.8f:1.5f)));
+        Destroy(gameObject);
     }
 
     IEnumerator HurtAnim()

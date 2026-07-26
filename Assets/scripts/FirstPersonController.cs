@@ -291,7 +291,7 @@ public class FirstPersonController : MonoBehaviour
 				hit.collider.GetComponent<flyguy>().Hurt(hit.point);
 			else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
 				hit.collider.GetComponent<EnemyBullet>().Parry(_mainCamera.transform.forward);
-				SFXManager.instance.playSFX(10, transform, 2f);
+				SFXManager.instance.playSFX(10, transform, 3f);
 			}
 		}
 		yield return new WaitForSeconds(0.2f);

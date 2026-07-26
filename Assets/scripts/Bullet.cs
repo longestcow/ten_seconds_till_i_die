@@ -33,7 +33,7 @@ public class EnemyBullet : MonoBehaviour
             return;
 
         parried = true;
-
+        gameObject.layer = LayerMask.NameToLayer("parriedBullet");
     
         rb.velocity = direction.normalized * speed * 2f;
 
@@ -42,7 +42,25 @@ public class EnemyBullet : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == env)
-            Destroy(gameObject);
+        if(parried)
+        {
+            if(collision.gameObject.layer == 8) //bullet
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
+            else if(collision.gameObject.layer == 6)//enemy
+            {
+                collision.gameObject.GetComponent<Walker>().Dead();
+                Destroy(gameObject);
+
+            } 
+            else if(collision.gameObject.layer == 10)//fly enemy
+            {
+                collision.gameObject.GetComponent<flyguy>().Dead();
+                Destroy(gameObject);
+
+            } 
+        }
     }
 }
