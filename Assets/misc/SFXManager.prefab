@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3101160957437200787
+--- !u!1 &5724457787979893323
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2115974459973059380}
-  - component: {fileID: 2259451791883135814}
+  - component: {fileID: 1002690056250211929}
+  - component: {fileID: 7766685060334620937}
   m_Layer: 0
   m_Name: SFXManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2115974459973059380
+--- !u!4 &1002690056250211929
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101160957437200787}
+  m_GameObject: {fileID: 5724457787979893323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4740143, y: 1.3201389, z: 1.7555795}
@@ -32,28 +32,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2259451791883135814
+--- !u!114 &7766685060334620937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101160957437200787}
+  m_GameObject: {fileID: 5724457787979893323}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63222c42a7994414f9f68baef06f206b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  mainUI: {fileID: 0}
-  optionsUI: {fileID: 0}
-  musText: {fileID: 0}
-  sfxText: {fileID: 0}
-  fovText: {fileID: 0}
   sfxObject: {fileID: 8499280688979891779, guid: 7ff911823d501184fbb0ac27cda815a7,
     type: 3}
   music:
@@ -69,6 +59,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d7b1abdb7abe45f46ae7498520d856e9, type: 3}
   - {fileID: 8300000, guid: 7653670a08e60b540a3544f1aa27f72d, type: 3}
   - {fileID: 8300000, guid: 95fc8a3bccc83bf4aaa8187f9875a2f3, type: 3}
+  - {fileID: 8300000, guid: 042419998618aeb4799056235a048af6, type: 3}
   sfxVol: 0.2
   musicVol: 0.1
   currentMusic: {fileID: 0}

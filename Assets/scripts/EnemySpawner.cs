@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-
+    public GameObject melee,shooter,flyguy;
+    GameObject enemyPrefab;
+    public Button[] allButtons;
     public int enemiesPerWave = 5;
     public float waveInterval = 8f;
 
@@ -13,6 +16,14 @@ public class EnemySpawner : MonoBehaviour
     bool stop = false;
     private void Start()
     {
+        foreach (Button button in allButtons){
+            EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((data) => { OnButtonHovered(); });
+            trigger.triggers.Add(entry);
+        }
+        StartCoroutine(DifficultyRamp());
         StartCoroutine(SpawnWaves());
     }
 
@@ -30,7 +41,9 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemiesPerWave; i++)
         {
-            Vector3 spawnPoint = GetRandomNavMeshPoint();
+            int rand = Random.Range(0,3);
+            enemyPrefab = rand==0?shooter:melee;
+            Vector3 spawnPoint = GetRandomNavMeshPoint(); //change spawnpoint function if flyguy
 
             if (spawnPoint != Vector3.zero)
             {
@@ -64,4 +77,25 @@ public class EnemySpawner : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    public void againb()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Playground");
+    }
+    public void menub()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+    void OnButtonHovered()
+    {
+        SFXManager.instance.playSFX(8, transform, 1f);
+    }
+
+    IEnumerator DifficultyRamp()
+    {
+        yield return new WaitForSeconds(1f);
+    }
+
+
+
 }

@@ -10,6 +10,7 @@ public class Walker : MonoBehaviour
     FirstPersonController playerController;
     SpriteRenderer sprite;
     public bool melee;
+    Collider collider;
     public Transform bulletAnchor;
     public GameObject bulletPrefab;
     float fireCooldown = 1f, shootTimer = 0;
@@ -20,11 +21,12 @@ public class Walker : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed * (melee?1.8f:1);
-        agent.stoppingDistance = (melee)?0:range;
+        agent.speed = speed * (melee?1.5f:1);
+        agent.stoppingDistance = (melee)?1:range;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerController = player.GetComponent<FirstPersonController>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        collider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -44,29 +46,36 @@ public class Walker : MonoBehaviour
         }
 
         if (agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+        {
+            agent.updateRotation = false;
+
+            Vector3 direction = player.position - transform.position;
+            direction.y = 0;
+
+            if (direction != Vector3.zero)
             {
-                agent.updateRotation = false;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
+            }
 
-                Vector3 direction = player.position - transform.position;
-                direction.y = 0;
 
-                if (direction != Vector3.zero)
-                {
-                    Quaternion lookRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * agent.angularSpeed);
+            shootTimer -= Time.deltaTime;
+            if (shootTimer <= 0){
+                shootTimer = fireCooldown * (melee?1:2);
+
+                if(!melee){
+                    Vector3 direction1 = ((player.position+new Vector3(0,1.5f,0)) - bulletAnchor.position).normalized;
+                    GameObject bullet = Instantiate(bulletPrefab, bulletAnchor.position, bulletAnchor.rotation);
+                    bullet.GetComponent<EnemyBullet>().Initialize(direction1);
                 }
-
-                if (!melee)
+                else
                 {
-                    shootTimer -= Time.deltaTime;
-                    if (shootTimer <= 0){
-                        shootTimer = fireCooldown;
-                        Vector3 direction1 = ((player.position+new Vector3(0,1.5f,0)) - bulletAnchor.position).normalized;
-                        GameObject bullet = Instantiate(bulletPrefab, bulletAnchor.position, bulletAnchor.rotation);
-                        bullet.GetComponent<EnemyBullet>().Initialize(direction1);
-                    }
+                    StartCoroutine(Bite());
                 }
             }
+            
+ 
+        }
         else
             agent.updateRotation = true;
         
@@ -76,7 +85,6 @@ public class Walker : MonoBehaviour
 
     public void Hurt(Vector3 hitPoint)
     {
-        Debug.Log("OUCH");
         health--;
 
         Instantiate(hitParticles, hitPoint, Quaternion.identity);
@@ -86,7 +94,7 @@ public class Walker : MonoBehaviour
         if (health <= 0)
         {
             playerController.ResetTime();
-            SFXManager.instance.playSFX(7, transform, 1f, Random.Range(0.5f, 1.5f));
+            SFXManager.instance.playSFX(7, transform, 1f, Random.Range((melee?1f:0.5f), (melee?1.8f:1.5f)));
             Destroy(gameObject);
         }
     }
@@ -97,5 +105,12 @@ public class Walker : MonoBehaviour
         SFXManager.instance.playSFX(1, transform, 1f);
         yield return new WaitForSeconds(0.1f);
         sprite.color = Color.white;
+    }
+
+    IEnumerator Bite()
+    {
+        collider.enabled = false;
+        yield return null;
+        collider.enabled = true;
     }
 }

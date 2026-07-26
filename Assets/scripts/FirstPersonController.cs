@@ -17,7 +17,7 @@ public class FirstPersonController : MonoBehaviour
 	public float SpeedChangeRate = 10.0f;
 	public float currentTime = 0;
 	float scaleb = 0.4f;
-	public GameObject blackScreen;
+	public GameObject blackScreen, options;
 	EnemySpawner enemySpawner;
 	int currentTimeIndex = 0;
 	public TextMeshProUGUI timeText;
@@ -274,14 +274,13 @@ public class FirstPersonController : MonoBehaviour
 
 		RaycastHit hit;
 		if (Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out hit, 100f)){
-			Debug.Log("Hit: " + hit.collider.gameObject.name);
-    		Debug.Log("Layer: " + hit.collider.gameObject.layer);
+
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("enemy"))
 			{
 				 hit.collider.GetComponent<Walker>().Hurt(hit.point);
 			}
-		if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
-			hit.collider.GetComponent<EnemyBullet>().Parry(_mainCamera.transform.forward);
+			if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bullet")){
+				hit.collider.GetComponent<EnemyBullet>().Parry(_mainCamera.transform.forward);
 			}
 		}
 		yield return new WaitForSeconds(0.2f);
@@ -333,20 +332,24 @@ public class FirstPersonController : MonoBehaviour
 		enemySpawner.StopSpawning();
 		currentTime = 9.99f;
 		SetTimeText();
-		blackScreen.SetActive(true);
 		StartCoroutine(DeathScene());
 	}
 	IEnumerator DeathScene()
 	{
+		blackScreen.SetActive(true);
 		SFXManager.instance.playSFX(3, transform, 1f);
 		yield return new WaitForSeconds(3.5f);
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
 		currentTime = 10f;
 		SetTimeText();
 		timerImage.sprite = timerSprites[10];
 		currentTimeIndex = (int)currentTime;
 		timerImage.sprite = timerSprites[currentTimeIndex];
+		yield return new WaitForSeconds(1f);
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		yield return new WaitForSeconds(1.2f);
+		options.SetActive(true);
+
 
 	}
 
@@ -393,15 +396,15 @@ public class FirstPersonController : MonoBehaviour
 		else if(collision.gameObject.layer == LayerMask.NameToLayer("enemy"))
 		{
 			SFXManager.instance.playSFX(2, transform, 2f);
-			SFXManager.instance.playSFX(9, transform, 1f);
-			// currentTime+=1f;
-			Debug.Log("OUCHOUCHOUCH");
+			SFXManager.instance.playSFX(9, transform, 2f);
+			currentTime+=1f;
+			Debug.Log("OUCH");
 		}
 		else if(collision.gameObject.layer == LayerMask.NameToLayer("bullet"))
 		{
 			SFXManager.instance.playSFX(2, transform, 2f);
 			Debug.Log("OUCHOUCHOUCH");
-			// currentTime+=1f;
+			currentTime+=1f;
 			Destroy(collision.gameObject);
 		}
     }
